@@ -60,7 +60,7 @@ bool XmlReader::readHeader(float &version)
             QXmlStreamAttributes attr = _streamReader.attributes();
             bool ok = false;
             version  = attr.value("version").toFloat(&ok);
-            if( ! ok ){
+            if( ok ){ // #FixMe : (!ok) ???
                 return false;
             }
             return true;

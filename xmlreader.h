@@ -8,15 +8,7 @@
 
 #include <QDebug>
 
-struct Lesson{
-    QString name;
-    QString title;
-    QString language;
-};
-struct Theme{
-    QString name;
-    QString title;
-};
+
 struct Answer{
     bool valid;
     QString text;
@@ -24,9 +16,27 @@ struct Answer{
 struct Question{
     QString text;
     QString type;
+    float recomendedTimeInMinutes;
     bool caseSensitivity;
     bool stripSpaces;
+    bool markAsError;
+    bool markAsReturn;
+    std::vector<Answer> answers;
 };
+struct Theme{
+    QString name;
+    QString title;
+    char difficulty;
+    std::vector<Question> questions;
+};
+struct Lesson{
+    QString name;
+    QString title;
+    QString language;
+    std::vector<Theme> themes;
+};
+
+
 
 class XmlReader
 {

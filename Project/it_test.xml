@@ -2,8 +2,8 @@
 <!DOCTYPE QTester>
 <QTester version="0.1">
 	<lesson language="ru" name="it" title="Информационные технологии">
-		<theme name="introduction" title="Введение">
-			<question>
+		<theme name="introduction" title="Введение" difficulty="0">
+			<question recomendedTimeInMinutes="1.5">
 				<text>
 					Разработчик языка C++
 				</text>
