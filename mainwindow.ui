@@ -89,10 +89,17 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QWidget" name="widget" native="true">
+           <widget class="QWidget" name="Widget_Info" native="true">
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <layout class="QHBoxLayout" name="HLay_GroupStudent">
+               <item>
+                <widget class="QLabel" name="Label_userGroup">
+                 <property name="text">
+                  <string>Group</string>
+                 </property>
+                </widget>
+               </item>
                <item>
                 <widget class="QLabel" name="Label_userName">
                  <property name="sizePolicy">
@@ -102,19 +109,30 @@
                   </sizepolicy>
                  </property>
                  <property name="text">
-                  <string>Снежко Д.В.</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="Label_userGroup">
-                 <property name="text">
-                  <string>ПО-41</string>
+                  <string>Student name</string>
                  </property>
                 </widget>
                </item>
                <item>
                 <widget class="QLCDNumber" name="lcdNumber"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="HLay_LessonTheme">
+               <item>
+                <widget class="QLabel" name="Label_LessonTitle">
+                 <property name="text">
+                  <string>Lesson title</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="Label_ThemeTitle">
+                 <property name="text">
+                  <string>Theme title</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -131,15 +149,15 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>693</width>
-               <height>297</height>
+               <width>696</width>
+               <height>268</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
                <widget class="QLabel" name="Label_Question">
                 <property name="text">
-                 <string>Test Question</string>
+                 <string>Text Question</string>
                 </property>
                 <property name="scaledContents">
                  <bool>false</bool>
@@ -224,7 +242,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>76</width>
+             <width>73</width>
              <height>435</height>
             </rect>
            </property>
