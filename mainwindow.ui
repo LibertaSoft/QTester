@@ -451,7 +451,7 @@
              <item>
               <layout class="QHBoxLayout" name="HLay_ReturnLater">
                <item>
-                <widget class="QCheckBox" name="CheckBox_ErrorInQuestion">
+                <widget class="QCheckBox" name="ChBox_ErrorInQuestion">
                  <property name="text">
                   <string>Question contains inaccuracy</string>
                  </property>
@@ -469,6 +469,16 @@
                   </size>
                  </property>
                 </spacer>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_DontKnow">
+                 <property name="toolTip">
+                  <string>It won't affect an assessment, but the teacher will have idea of that that the group didn't understand</string>
+                 </property>
+                 <property name="text">
+                  <string>I don't know</string>
+                 </property>
+                </widget>
                </item>
                <item>
                 <widget class="QCheckBox" name="ChBox_ReturnLater">

@@ -21,6 +21,7 @@ struct Question{
     bool stripSpaces;
     bool markAsError;
     bool markAsReturn;
+    bool markAsDontKnow;
     std::vector<Answer> answers;
 };
 struct Theme{

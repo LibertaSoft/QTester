@@ -33,22 +33,22 @@ MainWindow::MainWindow(QWidget *parent)
             xmlTags::xmlTags x = r.readNext2(lesson);
             switch(x){
             case xmlTags::lesson:
-//                qDebug() << "Lesson";
-//                qDebug() << lesson.language;
-//                qDebug() << lesson.name;
-//                qDebug() << lesson.title;
+                //                qDebug() << "Lesson";
+                //                qDebug() << lesson.language;
+                //                qDebug() << lesson.name;
+                //                qDebug() << lesson.title;
                 break;
             case xmlTags::theme:
-//                qDebug() << "Theme";
-//                qDebug() << t.difficulty;
-//                qDebug() << t.name;
-//                qDebug() << t.title;
+                //                qDebug() << "Theme";
+                //                qDebug() << t.difficulty;
+                //                qDebug() << t.name;
+                //                qDebug() << t.title;
                 break;
             case xmlTags::question:
-//                qDebug() << "Question";
-//                qDebug() << q.text;
-//                qDebug() << q.type;
-//                qDebug() << q.recomendedTimeInMinutes;
+                //                qDebug() << "Question";
+                //                qDebug() << q.text;
+                //                qDebug() << q.type;
+                //                qDebug() << q.recomendedTimeInMinutes;
                 if(col==5){
                     ++row;
                     col = 0;
@@ -73,8 +73,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::questionChanged(int num)
 {
-//    Question.answers.size()
-//    answers
+    _currentNumQuestion = num;
+
+    ui->ChBox_ErrorInQuestion->setChecked( lesson.themes[0].questions[num].markAsError );
+    ui->ChBox_DontKnow->setChecked( lesson.themes[0].questions[num].markAsDontKnow );
+    ui->ChBox_ReturnLater->setChecked( lesson.themes[0].questions[num].markAsReturn );
 
     QString type = lesson.themes[0].questions[num].type;
     QString text = lesson.themes[0].questions[num].text;
@@ -117,4 +120,19 @@ void MainWindow::questionChanged(int num)
     }else{
         qCritical() << "Question type is undefined";
     }
+}
+
+void MainWindow::on_ChBox_ReturnLater_toggled(bool checked)
+{
+    lesson.themes[0].questions[_currentNumQuestion].markAsReturn = checked;
+}
+
+void MainWindow::on_ChBox_DontKnow_toggled(bool checked)
+{
+    lesson.themes[0].questions[_currentNumQuestion].markAsDontKnow = checked;
+}
+
+void MainWindow::on_ChBox_ErrorInQuestion_toggled(bool checked)
+{
+    lesson.themes[0].questions[_currentNumQuestion].markAsError = checked;
 }
