@@ -410,8 +410,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>696</width>
-               <height>270</height>
+               <width>769</width>
+               <height>268</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -488,28 +488,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QScrollArea" name="ScrollArea_Questions">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_3">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>73</width>
-             <height>437</height>
-            </rect>
-           </property>
-           <layout class="QGridLayout" name="gridLayout"/>
-          </widget>
-         </widget>
+         <layout class="QGridLayout" name="gridLayout_2"/>
         </item>
        </layout>
       </widget>
@@ -711,7 +690,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>495</width>
-                 <height>382</height>
+                 <height>380</height>
                 </rect>
                </property>
                <widget class="QCheckBox" name="checkBox">
@@ -829,7 +808,7 @@
      <x>0</x>
      <y>0</y>
      <width>821</width>
-     <height>26</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>

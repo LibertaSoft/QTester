@@ -26,13 +26,13 @@ struct Question{
 struct Theme{
     QString name;
     QString title;
-    char difficulty;
+    short difficulty;
     std::vector<Question> questions;
 };
 struct Lesson{
     QString name;
     QString title;
-    QString language;
+    QLocale::Language language;
     std::vector<Theme> themes;
 };
 
@@ -46,12 +46,14 @@ class XmlReader
     xmlTags::xmlTags            _currentSection;
     bool                        _testerFormat;
 
-    bool readQuestion();
+    bool readQuestion(Question& question);
 public:
     XmlReader(QIODevice* stream);
     bool isQTesterFormat();
     bool readHeader();
     bool readHeader(float &version);
+
+    xmlTags::xmlTags readNext2(Lesson&);
     QMap<QString, QVariant> readNext();
 
     bool atEnd()const;

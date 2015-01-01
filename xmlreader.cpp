@@ -60,9 +60,8 @@ bool XmlReader::readHeader(float &version)
             QXmlStreamAttributes attr = _streamReader.attributes();
             bool ok = false;
             version  = attr.value("version").toFloat(&ok);
-            if( ok ){ // #FixMe : (!ok) ???
+            if( !ok )
                 return false;
-            }
             return true;
         }else{
             qCritical() << "[XmlReader::readHeader] The tag a 'QTester' is expected.";
@@ -70,6 +69,48 @@ bool XmlReader::readHeader(float &version)
         }
     }
     return true;
+}
+
+xmlTags::xmlTags XmlReader::readNext2(Lesson &l)
+{
+    Answer a;
+    Question q;
+    Theme t;
+    _streamReader.readNext();
+    while( _streamReader.tokenType() != QXmlStreamReader::StartElement && !hasError() && !atEnd() ){
+        _streamReader.readNext();
+    }
+
+    if ( _streamReader.name() == "lesson" ){
+        // <lesson language="ru" name="it" title="Информационные технологии">
+        QXmlStreamAttributes attr = _streamReader.attributes();
+        l.language = QLocale( attr.value("language").toString() ).language();
+        l.name     = attr.value("name").toString();
+        l.title    = attr.value("title").toString();
+        return xmlTags::lesson;
+    }else if ( _streamReader.name() == "theme" ){
+        // <theme name="introduction" title="Введение" difficulty="0">
+        QXmlStreamAttributes attr = _streamReader.attributes();
+        t.difficulty = attr.value("difficulty").toShort(/* #FixMe : (!ok) */);
+        t.name       = attr.value("name").toString();
+        t.title      = attr.value("title").toString();
+        l.themes.push_back(t);
+        return xmlTags::theme;
+        // #ToDo : Нужно полностью зачитывать Question
+        // Иначе - не понятно когда объект полностью инициализирован.
+    }else if ( _streamReader.name() == "question" ){
+        // <question recomendedTimeInMinutes="1.5">
+        QXmlStreamAttributes attr = _streamReader.attributes();
+        q.recomendedTimeInMinutes = attr.value("recomendedTimeInMinutes").toFloat(/* #FixMe : (!ok) */);
+        if( ! readQuestion(q) ){
+            qCritical() << "Question was reaing at problem.";
+            qDebug() << "qType: " << q.type;
+            qDebug() << "qText: " << q.text;
+        }
+        l.themes.front().questions.push_back(q);
+        return xmlTags::question;
+    }
+    return xmlTags::lesson;
 }
 
 QMap<QString, QVariant> XmlReader::readNext()
@@ -95,7 +136,9 @@ QMap<QString, QVariant> XmlReader::readNext()
         _streamReader.readNext();
 
         if( _streamReader.name() == "question" ){
-            if( ! readQuestion() ){
+            // #Bug
+            Question q;
+            if( ! readQuestion(q) ){
                 qCritical() << "[XmlReader::readNext] " << _streamReader.errorString();
                 _currentData.clear();
             }
@@ -109,7 +152,7 @@ QMap<QString, QVariant> XmlReader::readNext()
 }
 
 
-bool XmlReader::readQuestion()
+bool XmlReader::readQuestion(Question &question)
 {
 /*
 <question>
@@ -124,38 +167,39 @@ bool XmlReader::readQuestion()
     </answers>
 </question>
 */
-    int i(0);
     while ( !(_streamReader.tokenType() == QXmlStreamReader::EndElement
               && _streamReader.name() == "question") ){
+        qDebug() << _streamReader.name() << "||" << _streamReader.text();
         if( _streamReader.hasError() ){
+
             qCritical() << "[XmlReader::readItem] " << _streamReader.errorString();
             return false;
         }
         _streamReader.readNext();
         if ( _streamReader.tokenType() == QXmlStreamReader::StartElement
              && _streamReader.name() == "text" ){
+
              _streamReader.readNext();
-             _currentData["textQuestion"] = _streamReader.text().toString();
+             question.text = _streamReader.text().toString();
         }
         if (_streamReader.tokenType() == QXmlStreamReader::StartElement
              && _streamReader.name() == "answers" ){
+
             QXmlStreamAttributes attr = _streamReader.attributes();
-            QString type;
-            _currentData["type"] = attr.value("type").toString();
+            question.type = attr.value("type").toString();
         }
         if(_streamReader.tokenType() == QXmlStreamReader::StartElement
             && _streamReader.name() == "answer" ){
-            ++i;
+
             QXmlStreamAttributes attr = _streamReader.attributes();
-            QString valid;
-            _currentData["validAnswer" + QString::number(i)] = attr.value("valid").toString();
-
+            Answer answer;
+            answer.valid = ( attr.value("valid").toString().toLower() == "true" )? true : false;
             _streamReader.readNext();
-            _currentData["answer" + QString::number(i)] = _streamReader.text().toString();
+            answer.text = _streamReader.text().toString();
 
+            question.answers.push_back( answer );
         }
     }
-    _currentData["answerCount"] = i;
     return true;
 }
 

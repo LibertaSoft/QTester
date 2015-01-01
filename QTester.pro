@@ -14,14 +14,18 @@ TEMPLATE = app
 CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
-SOURCES += main.cpp\
-           mainwindow.cpp \
-           xmlreader.cpp \
-           xmlwriter.cpp
+SOURCES += \
+    main.cpp\
+    mainwindow.cpp \
+    xmlreader.cpp \
+    xmlwriter.cpp \
+    questbutton.cpp
 
-HEADERS  += mainwindow.h \
-            xmlreader.h \
-            xmlwriter.h \
-    globalenum.h
+HEADERS  += \
+    mainwindow.h \
+    xmlreader.h \
+    xmlwriter.h \
+    globalenum.h \
+    questbutton.h
 
 FORMS    += mainwindow.ui
